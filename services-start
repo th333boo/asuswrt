@@ -1,8 +1,5 @@
 #!/bin/sh
 
-wget -O - https://raw.githubusercontent.com/th333boo/asuswrt/main/services-start -o /dev/null
-chmod a+x /jffs/scripts/services-start
-
 #brctl delif br0 eth5
 #brctl delif br0 eth6
 brctl delif br0 wl0.1
@@ -16,10 +13,14 @@ ip link add link eth0 name eth0.10 type vlan id 10
 ip link add link eth0 name eth0.20 type vlan id 20
 ip link add link eth0 name eth0.30 type vlan id 30
 ip link add link eth0 name eth0.40 type vlan id 40
+ip link add link eth0 name eth0.50 type vlan id 50
+ip link add link eth0 name eth0.60 type vlan id 60
 ip link set eth0.10 up
 ip link set eth0.20 up
 ip link set eth0.30 up
 ip link set eth0.40 up
+ip link set eth0.50 up
+ip link set eth0.60 up
 
 #brctl addbr br1
 #brctl addif br1 eth0.10
@@ -40,7 +41,7 @@ brctl addif br3 wl1.2
 ip link set br3 up
 
 brctl addbr br4
-brctl addif br4 eth0.40
+brctl addif br4 eth0.50
 brctl addif br4 wl0.3
 brctl addif br4 wl1.3
 ip link set br4 up
@@ -51,7 +52,7 @@ nvram set lan2_ifnames="wl0.1 wl1.1 eth0.20"
 nvram set lan2_ifname="br2"
 nvram set lan3_ifnames="wl0.2 wl1.2 eth0.30"
 nvram set lan3_ifname="br3"
-nvram set lan4_ifnames="wl0.3 wl1.3 eth0.40"
+nvram set lan4_ifnames="wl0.3 wl1.3 eth0.50"
 nvram set lan4_ifname="br4"
 
 #nvram set br1_ifnames="eth5 eth6 eth0.10"
@@ -60,7 +61,7 @@ nvram set br2_ifnames="wl0.1 wl1.1 eth0.20"
 nvram set br2_ifname="br2"
 nvram set br3_ifnames="wl0.2 wl1.2 eth0.30"
 nvram set br3_ifname="br3"
-nvram set br4_ifnames="wl0.3 wl1.3 eth0.40"
+nvram set br4_ifnames="wl0.3 wl1.3 eth0.50"
 nvram set br4_ifname="br4"
 
 killall eapd
